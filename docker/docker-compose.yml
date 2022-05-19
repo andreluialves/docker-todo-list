@@ -1,20 +1,11 @@
 version: '3'
 
 services:
-  todotests:
-    image: todotests
-    restart: always
-    depends_on:
-      - "todoback"
-      - "todofront"
-    environment:
-      - FRONT_HOST=todofront
-
   todofront:
     image: todofrontend
     restart: always
     depends_on:
-      - "todoback"
+      - todoback
     ports:
       - 3000:3000
     environment:
@@ -25,3 +16,13 @@ services:
     restart: always
     ports:
       - 3001:3001
+      
+  todotests:
+    image: todotests
+    restart: always
+    depends_on:
+      - todoback
+      - todofront
+    environment:
+      - FRONT_HOST=todofront
+
